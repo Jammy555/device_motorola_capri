@@ -36,6 +36,12 @@ PRODUCT_PACKAGES += \
 # LiveDisplay
 $(call soong_config_set,livedisplay_sysfs,enable_ab,true)
 
+# Moto Camera 4
+TARGET_MOTCAMERA3 := capri
+TARGET_USES_MOTCAMERA3 := true
+
+$(call inherit-product, vendor/motorola/MotCamera4-bengal/motcamera4.mk)
+
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service
