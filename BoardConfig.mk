@@ -22,6 +22,9 @@ ODM_MANIFEST_DN_FILES := $(DEVICE_PATH)/sku/manifest_dn.xml
 ODM_MANIFEST_F_FILES := $(DEVICE_PATH)/sku/manifest_f.xml
 ODM_MANIFEST_N_FILES := $(DEVICE_PATH)/sku/manifest_n.xml
 
+# Init
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_capri
+
 # Kernel
 TARGET_KERNEL_CONFIG += vendor/ext_config/capri-default.config
 
