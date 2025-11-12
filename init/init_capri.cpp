@@ -84,19 +84,28 @@ void OverrideCarrierProperties() {
     std::string bootsku = GetProperty("ro.boot.hardware.sku", "");
     if (bootsku == "XT2127-3") {
         /* Lenovo K13 Note */
+        // Add your overrides here
+        OverrideProperty("ro.product.marketname", "Lenovo K13 Note");
+        // Battery is already 5000 mAh (from default), so no change needed
+
         for (const auto &source : RO_PROP_SOURCES) {
             ro_prop_override(source, "device", "capri", true);
             ro_prop_override(source, "model", "Lenovo K13 Note", true);
         }
     } else if (bootsku == "XT2127-4") {
-        /* Moto G10n Power */
+        /* Moto G10n Power / G10 Power */
+        // Add your overrides here
+        OverrideProperty("ro.infinity.battery", "6000 mAh"); // Override battery
+
         if (carrier == "retmea") {
+            OverrideProperty("ro.product.marketname", "moto g(10)n power"); // Override marketname
             for (const auto &source : RO_PROP_SOURCES) {
                 ro_prop_override(source, "device", "capri", true);
                 ro_prop_override(source, "model", "moto g(10)n power", true);
             }
         } else {
             /* Moto G10 Power */
+            OverrideProperty("ro.product.marketname", "moto g(10) power"); // Override marketname
             for (const auto &source : RO_PROP_SOURCES) {
                 ro_prop_override(source, "device", "capri", true);
                 ro_prop_override(source, "model", "moto g(10) power", true);
@@ -106,6 +115,19 @@ void OverrideCarrierProperties() {
 }
 
 void vendor_load_properties() {
+    // Set defaults for base Moto G10 (5000 mAh)
+    // These will be overridden by OverrideCarrierProperties if SKU matches
+    OverrideProperty("ro.product.marketname", "Moto G10");
+    OverrideProperty("ro.infinity.battery", "5000 mAh");
+
+    // Set common properties that don't change
+    OverrideProperty("ro.infinity.soc", "Snapdragon 460");
+    OverrideProperty("ro.infinity.display", "720 x 1600, 60 Hz");
+    OverrideProperty("ro.infinity.camera", "48MP + 8MP + 2MP + 2MP");
+
+    // This is your original logic, untouched. It will run and check RAM.
     set_avoid_gfxaccel_config();
+
+    // This will now run and override the defaults if needed
     OverrideCarrierProperties();
 }
