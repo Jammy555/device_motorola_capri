@@ -6,4 +6,10 @@
 <resources>
     <!-- Doze: does this device support STATE_DOZE?  -->
     <bool name="doze_display_state_supported">true</bool>
+
+    <!-- CPU temperature sensor path (hepta-cpu-max-step) -->
+    <string name="config_cpuTempSensor" translatable="false">/sys/class/thermal/thermal_zone20/temp</string>
+
+    <!-- CPU temperature divider for millidegrees Celsius -->
+    <integer name="config_cpuTempDivider" translatable="false">1000</integer>
 </resources>
